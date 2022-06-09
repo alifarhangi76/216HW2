@@ -1,3 +1,4 @@
+// open address hash table class
 class KeyValuePair {
     constructor(initKey, initValue) {
         this.key = initKey;
