@@ -97,9 +97,39 @@ export default class BinarySearchTree {
             return this.getValueRecursively(key, this.root);
     }
 
+    removeValueRecursively(node, key) {
+        if(key < node.key) {
+            node.left = this.removeValueRecursively(node.left, key);
+            return node;
+        }
+        else if (key > node.key) {
+            node.right = this.removeValueRecursively(node.right, key);
+            return node;
+        }
+        else {
+            if (node.left === null && node.right === null)
+                return null;
+            else if (node.left === null)
+                return node.right;
+            else if (node.right === null)
+                return node.left;
+            else {
+                let nextRoot = node.right;
+                while (nextRoot.left !== null)
+                    nextRoot = nextRoot.left;
+
+                node.key = nextRoot.key;
+                node.right = this.removeValueRecursively(node.right, nextRoot.key);
+                return node;
+            }
+        }
+    }
+
     // @todo - YOU MUST DEFINE THIS METHOD
     removeValue(key) {
-
+        if(this.root === null)
+            return;
+        this.root = this.removeValueRecursively(this.root, key);
     }
 
     toStringRecursively(traveller, level) {
