@@ -1,5 +1,5 @@
 import OpenAddressHashTable from "./OpenAddressHashTable.js";
-import { Person, Employee, Student } from "./People.js";
+import { Person, Employee, Student, Undergraduate } from "./People.js";
 
 const NUM_BINS = 5;
 const KEY_LENGTH = 8;
@@ -62,3 +62,69 @@ printHashTable("\nAfter Removing Keith Richards", hashTable);
 
 hashTable.removeValue(dgKey);
 printHashTable("\nAfter Removing Bill Withers", hashTable);
+
+// TESTING UNDERGRADUATE CLASS + MORE TESTS
+addPersonToHashTable(new Undergraduate(hashTable.generateKey(), "Steve", "Jobs", 4.0, "U4"), hashTable);
+addPersonToHashTable(new Undergraduate(hashTable.generateKey(), "Bill", "Gates", 3.9, "U3"), hashTable);
+printHashTable("\nAfter Adding 2 Undergraduates", hashTable);
+
+// DEMONSTRATE MAKING KEYS AND ADDING VALUES TO THE HASH TABLE  
+let emKey = hashTable.generateKey();
+hashTable.putValue(emKey, new Undergraduate(emKey, "Elon", "Musk", 3.8, "U2"));
+let mzKey = hashTable.generateKey();
+hashTable.putValue(mzKey, new Undergraduate(mzKey, "Mark", "Zuckerberg", 3.7, "U1"));
+printHashTable("\nAfter Adding 2 more Undergraduates", hashTable);
+
+// DEMONSTRATE GETTING VALUES FROM THE HASH TABLE
+let u = hashTable.getValue(emKey);
+console.log("\nget " + emKey + ": " + u.toString() + "\n");
+u = hashTable.getValue(mzKey);
+console.log("\nget " + mzKey + ": " + u.toString() + "\n");
+
+// NOW LET'S TRY REPLACING THE DATA IN THE ABOVE TWO
+hashTable.putValue(emKey, new Undergraduate(emKey, "Jeff", "Bezos", 3.6, "U3"));
+hashTable.putValue(mzKey, new Undergraduate(mzKey, "Jack", "Ma", 3.5, "U4"));
+printHashTable("\nAfter Changing 2 Items", hashTable);
+
+// AND DEMONSTRATE REMOVING ITEMS FROM THE HASH TABLE
+hashTable.removeValue(emKey);
+hashTable.removeValue(mzKey);
+printHashTable("\nAfter Removing 2 Items", hashTable);
+
+// NOW LET'S USE HARD-CODED KEYS
+let hardCodedKey = "ABC123DE";
+let hardCKey = "09ZXY231";
+
+// DEMONSTRATE GETTING VALUES FROM THE HASH TABLE
+let h = hashTable.getValue(hardCodedKey);
+if (h !== null)
+    console.log("\nget " + hardCodedKey + ": " + h.toString() + "\n");
+else    
+    console.log("\nThere is not any items with this key: " + hardCodedKey + "\n");
+
+h = hashTable.getValue(hardCKey);
+if (h !== null)
+    console.log("\nget " + hardCKey + ": " + h.toString() + "\n");
+else    
+    console.log("\nThere is not any items with this key: " + hardCKey + "\n");
+
+// REMOVING THE ITEMS THAT ARE NOT IN THE HASH TABLE YET
+hashTable.removeValue(hardCodedKey);
+hashTable.removeValue(hardCKey);
+printHashTable("\nAfter trying to remove 2 Items which have not been put into the hash table yet", hashTable);
+
+// NOW LET'S TRY TO ADD VALUES TO THE HASH TABLE BY USING HARD-CODED KEYS
+hashTable.putValue(hardCodedKey, new Undergraduate(hardCodedKey, "Alex", "Brown", 3.78, "U3"));
+hashTable.putValue(hardCKey, new Undergraduate(hardCKey, "David", "Lewis", 3.88, "U4"));
+printHashTable("\nAfter Adding 2 Items by using hard-coded keys", hashTable);
+
+// DEMONSTRATE GETTING VALUES FROM THE HASH TABLE BY USING HARD-CODED KEYS
+let k = hashTable.getValue(hardCodedKey);
+console.log("\nget " + hardCodedKey + ": " + k.toString() + "\n");
+k = hashTable.getValue(hardCKey);
+console.log("\nget " + hardCKey + ": " + k.toString() + "\n");
+
+// DEMONSTRATE REMOVING ITEMS FROM THE HASH TABLE BY USING HARD-CODED KEYS
+hashTable.removeValue(hardCodedKey);
+hashTable.removeValue(hardCKey);
+printHashTable("\nAfter Removing 2 Items by using hardcoded keys", hashTable);
