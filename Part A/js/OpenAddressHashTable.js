@@ -1,4 +1,3 @@
-// open address hash table class
 class KeyValuePair {
     constructor(initKey, initValue) {
         this.key = initKey;
@@ -43,7 +42,7 @@ export default class OpenAddressHashTable {
             }
             key += randomChar;
         }
-        return key;
+        return key; 
     }
     
     // @todo - YOU MUST DEFINE THIS METHOD
@@ -57,7 +56,37 @@ export default class OpenAddressHashTable {
 
     // @todo - YOU MUST DEFINE THIS METHOD
     putValue(key, item) {
+        let index = this.hashCode(key);
+        let count = 0;
+        while (count < this.length) {
+            if(this.hashTable[index] === undefined) {
+                this.hashTable[index] = new KeyValuePair (key, item);
+                this.size++;
+                return;
+            }
+            else if (this.hashTable[index].key.localeCompare(key) === 0) {
+                this.hashTable[index].value = item;
+                return;
+            }
+            index++;
+            if(index === this.length)
+                index = 0;
+            count++;
+        }
 
+        let tempTable = [];
+        for( let i = 0; i < this.length; i++ ) {
+            tempTable[i] = this.hashTable[i];
+        }
+        
+        this.hashTable = [];
+        let oldLength = this.length;
+        this.length = this.length * 2;
+        this.size = 0;
+        for( let i = 0; i < oldLength; i++ ) {
+            this.putValue(tempTable[i].key, tempTable[i].value);
+        }
+        this.putValue(key, item);
     }
     
     toString() {
