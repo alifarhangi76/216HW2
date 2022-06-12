@@ -54,7 +54,7 @@ export default class OpenAddressHashTable {
                 return null;
             else if (this.hashTable[index].key.localeCompare(key) === 0)
                 return this.hashTable[index].value;
-            
+
             index++;
             if (index === this.length)
                 index = 0;
@@ -64,7 +64,38 @@ export default class OpenAddressHashTable {
     }
     
     // @todo - YOU MUST DEFINE THIS METHOD
-    removeValue(key) {   
+    removeValue(key) {
+        let index = this.hashCode(key);
+        let count = 0;
+        while (count < this.length) {
+            let pairToRemove = this.hashTable[index];
+            if (pairToRemove === undefined) 
+                return;
+            else if (pairToRemove.key.localeCompare(key) === 0) {
+                this.hashTable[index] = undefined;
+                this.size--;
+                let temp = [];
+                let counter = 0;
+
+                for (let i = 0; i < this.length; i++) {
+                    if(this.hashTable[i] !== undefined) {
+                        temp[counter] = this.hashTable[i];
+                        counter++;
+                    }
+                }
+
+                this.hashTable = [];
+                this.size = 0;
+                for (let i = 0; i < counter; i++) {
+                    this.putValue(temp[i].key, temp[i].value);
+                }
+                return;
+            }
+            index++;
+            if (index === this.length)
+                index = 0;
+            count++;
+        }   
     }
 
     // @todo - YOU MUST DEFINE THIS METHOD
@@ -72,7 +103,7 @@ export default class OpenAddressHashTable {
         let index = this.hashCode(key);
         let count = 0;
         while (count < this.length) {
-            if(this.hashTable[index] === undefined) {
+            if (this.hashTable[index] === undefined) {
                 this.hashTable[index] = new KeyValuePair (key, item);
                 this.size++;
                 return;
@@ -82,13 +113,13 @@ export default class OpenAddressHashTable {
                 return;
             }
             index++;
-            if(index === this.length)
+            if (index === this.length)
                 index = 0;
             count++;
         }
 
         let tempTable = [];
-        for( let i = 0; i < this.length; i++ ) {
+        for (let i = 0; i < this.length; i++) {
             tempTable[i] = this.hashTable[i];
         }
 
@@ -96,7 +127,7 @@ export default class OpenAddressHashTable {
         let oldLength = this.length;
         this.length = this.length * 2;
         this.size = 0;
-        for( let i = 0; i < oldLength; i++ ) {
+        for (let i = 0; i < oldLength; i++) {
             this.putValue(tempTable[i].key, tempTable[i].value);
         }
         this.putValue(key, item);

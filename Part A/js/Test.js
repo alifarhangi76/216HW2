@@ -52,7 +52,7 @@ hashTable.putValue(jlKey, new Student(jlKey, "Otis", "Redding", 3.5));
 hashTable.putValue(cwKey, new Student(cwKey, "Keith", "Richards", 3.1));
 hashTable.putValue(dgKey, new Student(dgKey, "Bill", "Withers", 3.4));
 printHashTable("\nAfter Changing 3 Items", hashTable);
-/*
+
 // AND DEMONSTRATE REMOVING ITEMS FROM THE BST
 hashTable.removeValue(jlKey);
 printHashTable("\nAfter Removing Otis Redding", hashTable);
@@ -61,5 +61,4 @@ hashTable.removeValue(cwKey);
 printHashTable("\nAfter Removing Keith Richards", hashTable);
 
 hashTable.removeValue(dgKey);
-printHashTable("\nAfter Removing Bill Withers", hashTable); 
-*/
+printHashTable("\nAfter Removing Bill Withers", hashTable);
