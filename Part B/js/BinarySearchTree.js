@@ -59,7 +59,6 @@ export default class BinarySearchTree {
                 this.putValueRecursively(key, value, testNode.right);
             }
         }
-
      }
 
     // @todo - YOU MUST DEFINE THIS METHOD
@@ -72,9 +71,30 @@ export default class BinarySearchTree {
         this.putValueRecursively(key, value, this.root);
     }
 
+    getValueRecursively(key, testNode) {
+        if (key.localeCompare(testNode.key) < 0) {
+            if(testNode.left === null)
+                return null;
+        else
+            return this.getValueRecursively(key, testNode.left);
+        }
+        else if (key.localeCompare(testNode.key) === 0) 
+            return testNode.data;
+        
+        else {
+            if(testNode.right === null)
+                return null;
+            else 
+                return this.getValueRecursively(key, testNode.right);
+        }
+    }
+
     // @todo - YOU MUST DEFINE THIS METHOD
     getValue(key) {
-        return null;
+        if (this.root === null)
+            return null;
+        else
+            return this.getValueRecursively(key, this.root);
     }
 
     // @todo - YOU MUST DEFINE THIS METHOD
