@@ -38,7 +38,7 @@ hashTable.putValue(cwKey, new Student(cwKey, "Charlie", "Watts", 3.1));
 let dgKey = hashTable.generateKey();
 hashTable.putValue(dgKey, new Employee(dgKey, "David", "Gilmour", 120000));
 printHashTable("\nAfter Changing 3 Items", hashTable);
-/*
+
 // DEMONSTRATE GETTING VALUES FROM THE HASH TABLE
 let p = hashTable.getValue(jlKey);
 console.log("\nget " + jlKey + ": " + p.toString() + "\n");
@@ -46,7 +46,7 @@ p = hashTable.getValue(cwKey);
 console.log("\nget " + cwKey + ": " + p.toString() + "\n");
 p = hashTable.getValue(dgKey);
 console.log("\nget " + dgKey + ": " + p.toString() + "\n"); 
-*/
+
 // NOW LET'S TRY REPLACING THE DATA IN THE ABOVE THREE
 hashTable.putValue(jlKey, new Student(jlKey, "Otis", "Redding", 3.5));
 hashTable.putValue(cwKey, new Student(cwKey, "Keith", "Richards", 3.1));
