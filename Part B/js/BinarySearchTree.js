@@ -97,39 +97,81 @@ export default class BinarySearchTree {
             return this.getValueRecursively(key, this.root);
     }
 
-    removeValueRecursively(node, key) {
-        if(key < node.key) {
-            node.left = this.removeValueRecursively(node.left, key);
-            return node;
-        }
-        else if (key > node.key) {
-            node.right = this.removeValueRecursively(node.right, key);
-            return node;
-        }
-        else {
-            if (node.left === null && node.right === null)
-                return null;
-            else if (node.left === null)
-                return node.right;
-            else if (node.right === null)
-                return node.left;
-            else {
-                let nextRoot = node.right;
-                while (nextRoot.left !== null)
-                    nextRoot = nextRoot.left;
-
-                node.key = nextRoot.key;
-                node.right = this.removeValueRecursively(node.right, nextRoot.key);
-                return node;
-            }
-        }
-    }
-
     // @todo - YOU MUST DEFINE THIS METHOD
     removeValue(key) {
-        if(this.root === null)
+        let traveller = this.root;
+        let found = false;
+        if(traveller === null) {
+            console.log("BST is empty and cannot remove any items")
             return;
-        this.root = this.removeValueRecursively(this.root, key);
+        }
+        while (!found) {
+            console.log("key: " + key + ", traveller.key: " + traveller.key + "\n");
+            if(key.localeCompare(traveller.key) === 0) {
+                if(traveller.left !== null) {
+                    let largest = traveller.left;
+                    while (largest.right !== null) {
+                        largest = largest.right;
+                    }
+
+                    traveller.key = largest.key;
+                    traveller.data = largest.data;
+
+                    if(largest === largest.parent.left) {
+                        largest.parent.left = largest.left;
+                    }
+                    else {
+                        largest.parent.right = largest.left;
+                    }
+
+                }
+                else if (traveller.right != null) {
+                    let smallest = traveller.right;
+                    while (smallest.left !== null) {
+                        smallest = smallest.left;
+                    }
+
+                    traveller.key = smallest.key;
+                    traveller.data = smallest.data;
+
+                    if(smallest === smallest.parent.right) {
+                        smallest.parent.right = smallest.right;
+                    }
+                    else {
+                        smallest.parent.left = smallest.right;
+                    }
+                }
+                else {
+                    if(traveller === this.root) {
+                        this.root = null;
+                    }
+                    else if (traveller === traveller.parent.left) {
+                        traveller.parent.left = null;
+                    }
+                    else {
+                        traveller.parent.right = null;
+                    }
+                }
+                this.size--;
+                found = true;
+            }
+            else if (key.localeCompare(traveller.key) < 0) {
+                if(traveller.left === null){
+                    return;
+                }
+                else {
+                    traveller = traveller.left;
+                }
+            }
+            else {
+                if(traveller.right === null) {
+                    return;
+                }
+                else {
+                    traveller = traveller.right;
+                }
+            }
+        }
     }
 
     toStringRecursively(traveller, level) {
