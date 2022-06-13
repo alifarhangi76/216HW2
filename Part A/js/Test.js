@@ -88,8 +88,10 @@ printHashTable("\nAfter Changing 2 Items", hashTable);
 
 // AND DEMONSTRATE REMOVING ITEMS FROM THE HASH TABLE
 hashTable.removeValue(emKey);
+printHashTable("\nAfter Removing Jeff Bezos", hashTable);
 hashTable.removeValue(mzKey);
-printHashTable("\nAfter Removing 2 Items", hashTable);
+printHashTable("\nAfter Removing Jack Ma", hashTable);
+printHashTable("\nCurrent Hash Table After Removing 2 Items", hashTable);
 
 // NOW LET'S USE HARD-CODED KEYS
 let hardCodedKey = "ABC123DE";
